@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define tr(c,it) for(typeof(c.begin()) it=c.begin();it!=c.end();++it)
+#define all(c) c.begin(),c.end()
+#define mod 1000000007
+#define itor(c) typeof(c.begin())
+#define ll long long
+#define vi vector<int>
+#define si set<int>
+#define msi multiset<int>
+#define ii pair<int,int>
+#define sii set<ii>
+#define vii vector<ii>
+#define vvi vector<vi>
+#define pb push_back
+#define mp make_pair
+#define vll vector<ll>
+#define yes cout<<"YES"<<"\n"
+#define no cout<<"NO"<<"\n"
+#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fo(i,s,e) for(long long int i=s;i<=e;i++)
+#define F first
+#define S second
+#define tc ll t;cin>>t; while(t--)
+
+int gcd(int a, int b) 
+{ 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
+
+int findGCD(int arr[], int n) 
+{ 
+    int result = arr[0]; 
+    for (int i = 1; i < n; i++) 
+    { 
+        result = gcd(arr[i], result); 
+  
+        if(result == 1) 
+        { 
+           return 1; 
+        } 
+    } 
+    return result; 
+} 
+
+int main(){
+ fast
+
+    ll n;
+    cin>>n;
+    int a[n];
+    fo(i,0,n-1){
+      cin>>a[i];
+    }
+    ll g=findGCD(a,n);
+    ll c=0,x,y;
+    fo(i,0,n-1){
+             x=a[i]/g;
+             if(x%2!=0&&x%3!=0&&x!=1){
+                 cout<<"No\n";
+                 c=1;
+                 break;
+             }
+      
+    }
+
+     
+     if(c==0){
+         cout<<"Yes\n";
+     }
+
+
+return 0;
+}
