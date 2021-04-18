@@ -27,15 +27,29 @@ using namespace std;
 
 int main(){
  fast
+tc{
+    ll n;
+    cin>>n;
+    ll x;
+    vll a;
+    forin(a,x,n);
 
-    ll n,k;
-    cin>>n>>k;
-   ll i = 0;
-    vll v(26,0);
-    while(n--) {
-        cout<<char('a' + i);
-        i = (i + v[i]++) % k;
+    vll ans,v;
+    fo(i,0,n-1){
+        if(a[i]&1)
+        v.pb(a[i]);
+        else{
+            ans.pb(a[i]);
+        }
     }
+    for(auto i:v){
+        cout<<i<<" ";
+    }
+    for(auto i:ans){
+        cout<<i<<" ";
+    }
+    cout<<"\n";
+}
 
 return 0;
 }

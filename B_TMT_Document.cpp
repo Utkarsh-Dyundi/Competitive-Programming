@@ -27,15 +27,51 @@ using namespace std;
 
 int main(){
  fast
-
-    ll n,k;
-    cin>>n>>k;
-   ll i = 0;
-    vll v(26,0);
-    while(n--) {
-        cout<<char('a' + i);
-        i = (i + v[i]++) % k;
+tc{
+    ll n;
+    cin>>n;
+    string s;
+    cin>>s;
+    ll t=0,m=0,c=0,j=n+1;
+    vll M;
+    fo(i,0,n-1){
+        if(s[i]=='T')
+        t++;
+        else{
+            m++;
+            if(m>t){
+                c=1;
+                break;
+            }
+        }
     }
+    if(t!=(2*n)/3||m!=(n/3)){
+        c=1;
+    }
+    else {
+    t=0;
+    m=0;
+      for(ll i=n-1;i>=0;i--){
+        if(s[i]=='T')
+        t++;
+        else{
+            m++;
+            if(m>t){
+                c=1;
+                break;
+            }
+        }
+    }
+    }
+    if(c==0){
+        yes;
+    }
+    else
+    {
+        no;
+    }
+    
+}
 
 return 0;
 }

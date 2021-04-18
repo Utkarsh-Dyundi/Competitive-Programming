@@ -27,15 +27,20 @@ using namespace std;
 
 int main(){
  fast
-
-    ll n,k;
-    cin>>n>>k;
-   ll i = 0;
-    vll v(26,0);
-    while(n--) {
-        cout<<char('a' + i);
-        i = (i + v[i]++) % k;
+tc{
+    ll h,x,y,c;
+    cin>>h>>x>>y>>c;
+    y=y/2;
+    ll p=x+y;
+    x=p*h;
+    if(c>=x)
+    yes;
+    else
+    {
+        no;
     }
+    
+}
 
 return 0;
 }

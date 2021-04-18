@@ -27,15 +27,22 @@ using namespace std;
 
 int main(){
  fast
-
-    ll n,k;
-    cin>>n>>k;
-   ll i = 0;
-    vll v(26,0);
-    while(n--) {
-        cout<<char('a' + i);
-        i = (i + v[i]++) % k;
+tc{
+    ll n;
+    cin>>n;
+    ll x;
+    vll a;
+    forin(a,x,n);
+    vll b;
+    forin(b,x,n);
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end(),greater<ll>());
+    ll ans=-1;
+    for(int i=0;i<n;i++){
+        ans=max(ans,a[i]+b[i]);
     }
+    cout<<ans<<"\n";
+}
 
 return 0;
 }
