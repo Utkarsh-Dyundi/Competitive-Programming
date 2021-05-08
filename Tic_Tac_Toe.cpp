@@ -29,7 +29,7 @@ int main(){
  fast
 tc{
     vector<string> v;
-    ll c1=0,c2=0;
+    ll c1=0,c2=0,c3=0;
     fo(i,0,2){
         string s;
         cin>>s;
@@ -39,18 +39,23 @@ tc{
             }
             else if(s[i]=='O')
             c2++;
+            else
+            {
+                c3++;
+            } 
         }
         v.pb(s);
     }
-    if(c1==0&&c2>0){
+    if(c2>c1){
+        cout<<3<<"\n";
+        continue;
+    }
+     if(abs(c1-c2)>1){
         cout<<3<<"\n";
         continue;
     }
     //cout<<c1<<" "<<c2<<"\n";
-    if(abs(c1-c2)>1){
-        cout<<3<<"\n";
-        continue;
-    }
+   
     ll x=0,o=0;
 
     fo(i,0,2){
@@ -58,6 +63,12 @@ tc{
             if(v[i][0]=='X')
             x++;
             else if(v[i][0]=='O')
+            o++;
+        }
+        if(v[0][i]==v[1][i]&&v[1][i]==v[2][i]){
+            if(v[0][i]=='X')
+            x++;
+            else if(v[0][i]=='O')
             o++;
         }
     }
@@ -74,10 +85,23 @@ tc{
             o++;
     }
     //cout<<x<<" "<<o<<"\n";
+    if(x==0&&o==0){
+        if(c3==0)
+        cout<<1<<"\n";
+        else
+        {
+            cout<<2<<"\n";
+        }
+        continue;
+    }
     if(x>0&&o>0){
         cout<<3<<"\n";
         continue;
     }
+    // if(x>1||o>1){
+    //     cout<<3<<"\n";
+    //     continue;
+    // }
     if(x>0){
       if(c1!=c2+1){
         cout<<3<<"\n";
