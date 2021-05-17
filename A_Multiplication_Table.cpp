@@ -24,31 +24,41 @@ using namespace std;
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
-unordered_map<ll,ll> a;
-void solve(ll n,ll j,ll i){
-    while(j<=n){
-        a[j]++;
-        j+=i;
-    }
-}
+
 int main(){
  fast
-tc{
-    ll n,m;
-    cin>>n>>m;
-    ll ans=n-1;
-   
-    fo(i,2 ,n){
-    ll k=m%i;
-    //cout<<k<<"\n";
-    if(a[k]>0)
-    ans+=a[k];
-    solve(n,k,i);
-    
+
+    ll n;
+    cin>>n;
+    ll a[n][n];
+    fo(i,0,n-1){
+        fo(j,0,n-1){
+            cin>>a[i][j];
+        }
     }
-    cout<<ans<<"\n";
-    a.clear();
-}
+    vll ans;
+    ll c;
+    
+     fo(i,0,n-1){
+        if(i==0){
+            c=a[i][i+1]*a[i][i+2];
+            c/=a[i+1][i+2];
+            ans.pb(sqrt(c));
+        }
+        else if(i==n-1){
+            c=a[i][i-1]*a[i][i-2];
+            c/=a[i-1][i-2];
+            ans.pb(sqrt(c));
+        }
+        else{
+            c=a[i][i+1]*a[i][i-1];
+            c/=a[i+1][i-1];
+            ans.pb(sqrt(c));
+        }
+     }
+    
+    printv(ans);
+
 
 return 0;
 }

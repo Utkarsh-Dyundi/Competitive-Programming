@@ -26,35 +26,40 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 vll u;
 vector<vll> dp,VIS;
-void printPath(vector<ll> stack,ll j)
+vector<vll> adj;
+vector<bool> vis;
+ vector<ll> stak;
+void printPath(ll j)
 {   ll c=0;
-    for(auto i:stack){
+    for(auto i:stak){
         c++;
         dp[i][j]=c;
         VIS[i][j]=1;
     }
 }
-void DFS(vector<vll> v,bool vis[],int x,int y,vector<ll> stack,ll k)
+void DFS(int x,int y,ll k)
 {
-    stack.push_back(x);
+    stak.push_back(x);
     if (x == y) {
-        printPath(stack, k);
+        printPath(k);
         return;
     }
     vis[x] = true;
-    if (!v[x].empty()) {
-        for (int j = 0; j < v[x].size(); j++) {
-            if (vis[v[x][j]] == false)
-                DFS(v, vis, v[x][j], y, stack,k);
+    if (!adj[x].empty()) {
+        for (int j = 0; j < adj[x].size(); j++) {
+            if (vis[adj[x][j]] == false)
+                DFS(adj[x][j], y,k);
         }
     }
-    stack.pop_back();
+    stak.pop_back();
 }
-void DFSCall(int x,int y,vector<vll> v,int n,vector<ll> stack,ll j)
+void DFSCall(int x,int y,int n,ll j)
 {
-    bool vis[n + 1];
-    memset(vis, false, sizeof(vis));
-    DFS(v, vis, x, y, stack, j);
+    vis.resize(n+1);
+    fo(i,0,n){
+        vis[i]=false;
+    }
+    DFS(x, y, j);
 }
 
 int main(){
@@ -65,21 +70,21 @@ tc{
     ll x;
     vll sp;
     forin(sp,x,k);
-    vector<vll> ads(n+1);
+    adj.resize(n+1);
     dp.resize(n+1,vll(k));
     VIS.resize(n+1,vll(k));
     fo(i,0,n-2){
         ll y;
         cin>>x>>y;
-        ads[x].pb(y);
-        ads[y].pb(x);
+        adj[x].pb(y);
+        adj[y].pb(x);
     }
     ll ans=INT_MIN,res;
-    vector<ll> stack;
+   
     vll a1,a2;
     vll aa;
     fo(i,0,k-1){
-    DFSCall(sp[i], a, ads, n, stack, i);
+    DFSCall(sp[i], a, n, i);
     // aa.pb(u[u.size()-1]);
     }
     for(ll i=n;i>0;i--){
@@ -87,7 +92,7 @@ tc{
          fo(j,0,k-1){
              //stack.clear();
               if(VIS[i][j]!=1){
-              DFSCall(sp[j], i, ads, n, stack,j);
+              DFSCall(sp[j], i, n, j);
               }
               ll h=dp[a][j]-dp[i][j];
               if(ans<h){
@@ -104,6 +109,9 @@ tc{
     printv(a2);
     dp.clear();
     VIS.clear();
+    stak.clear();
+    adj.clear();
+    vis.clear();
 }
 
 return 0;

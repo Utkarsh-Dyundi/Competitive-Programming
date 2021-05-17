@@ -24,31 +24,31 @@ using namespace std;
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
-unordered_map<ll,ll> a;
-void solve(ll n,ll j,ll i){
-    while(j<=n){
-        a[j]++;
-        j+=i;
-    }
-}
+
 int main(){
  fast
-tc{
-    ll n,m;
-    cin>>n>>m;
-    ll ans=n-1;
-   
-    fo(i,2 ,n){
-    ll k=m%i;
-    //cout<<k<<"\n";
-    if(a[k]>0)
-    ans+=a[k];
-    solve(n,k,i);
-    
+
+    ll n;
+    cin>>n;
+    ll x;
+    vll a;
+    forin(a,x,n);
+    vll res;
+    res.pb(-1);
+    fo(i,1,n-1){
+        if(a[i]<=a[i-1]){
+            res.pb(i);
+        }
+    }
+    res.pb(n+1);
+    ll ans=INT_MIN;
+    fo(i,1,res.size()-2){
+        ll c=(res[i+1]-1)-(res[i-1]);
+        ans=max(ans,c);
     }
     cout<<ans<<"\n";
-    a.clear();
-}
+    printv(res);
+
 
 return 0;
 }

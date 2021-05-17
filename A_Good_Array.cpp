@@ -24,31 +24,40 @@ using namespace std;
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
-unordered_map<ll,ll> a;
-void solve(ll n,ll j,ll i){
-    while(j<=n){
-        a[j]++;
-        j+=i;
-    }
-}
+
 int main(){
  fast
-tc{
-    ll n,m;
-    cin>>n>>m;
-    ll ans=n-1;
-   
-    fo(i,2 ,n){
-    ll k=m%i;
-    //cout<<k<<"\n";
-    if(a[k]>0)
-    ans+=a[k];
-    solve(n,k,i);
-    
-    }
-    cout<<ans<<"\n";
-    a.clear();
-}
 
+    ll n;
+    cin>>n;
+    ll x;
+    vll a;
+    forin(a,x,n);
+    unordered_map<ll,vll> m1;
+    unordered_map<ll,ll> m,m2;
+    ll s=0;
+    fo(i,0,n-1){
+          m[a[i]]++;
+          s+=a[i];
+          m1[a[i]].pb(i);
+    }
+    ll ans=0;
+    vll res;
+    fo(i,0,n-1){
+        ll k=s-a[i];
+        ll j=k-a[i];
+        m[a[i]]--;
+        if(m[j]>0&&m2[j]==0){
+        ans+=m[j];
+        if(j==a[i])
+        ans++;
+        for(auto l:m1[j])
+        res.pb(l+1);
+        m2[j]=1;
+        }
+        m[a[i]]++;
+    }
+   cout<<ans<<"\n";
+   printv(res);
 return 0;
 }
