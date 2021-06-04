@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define tr(c,it) for(typeof(c.begin()) it=c.begin();it!=c.end();++it)
+#define all(c) c.begin(),c.end()
+#define mod 1000000007
+#define itor(c) typeof(c.begin())
+#define ll long long
+#define vi vector<int>
+#define si set<int>
+#define msi multiset<int>
+#define ii pair<int,int>
+#define sii set<ii>
+#define vii vector<ii>
+#define vvi vector<vi>
+#define pb push_back
+#define mp make_pair
+#define vll vector<ll>
+#define yes cout<<"YES"<<"\n"
+#define no cout<<"NO"<<"\n"
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
+#define fo(i,s,e) for(long long int i=s;i<=e;i++)
+#define F first
+#define S second
+#define tc ll t;cin>>t; while(t--)
+#define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
+#define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
+
+int main(){
+ fast
+tc{
+    string s;
+    cin>>s;
+    ll u=0,d=0,l=0,r=0;
+    fo(i,0,s.size()-1){
+         if(s[i]=='U'){
+             u++;
+         }
+         else if(s[i]=='D'){
+             d++;
+         }
+         else if(s[i]=='L'){
+             l++;
+         }
+         else{
+             r++;
+         }
+    }
+    if((u==0||d==0)&&(l==0||r==0)){
+        cout<<0<<"\n";
+    }
+    else{
+        u=min(u,d);
+        d=u;
+        l=min(l,r);
+        r=l;
+        if(l>1&&d==0){
+            cout<<2<<"\n";
+            cout<<"LR"<<"\n";
+        }
+        else if(l==0&&d>1){
+            cout<<2<<"\n";
+            cout<<"UD"<<"\n";
+        }
+        else{
+            cout<<2*(u+r)<<"\n";
+            fo(i,0,u-1){
+                cout<<"U";
+            }
+            fo(i,0,l-1){
+                cout<<"L";
+            }
+            fo(i,0,u-1){
+                cout<<"D";
+            }
+            fo(i,0,l-1){
+                cout<<"R";
+            }
+            cout<<"\n";
+        }
+    }
+}
+
+return 0;
+}
