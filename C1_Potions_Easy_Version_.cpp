@@ -17,37 +17,33 @@ using namespace std;
 #define vll vector<ll>
 #define yes cout<<"YES"<<"\n"
 #define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
 
 int main(){
  fast
-tc{
+
     ll n;
     cin>>n;
-    ll a=6+10+14;
-    if(n<=a)
-    no;
-    else{ 
-        yes;
-        if(n==44){
-            cout<<6<<" "<<10<<" "<<15<<" "<<13<<"\n";
-        }
-        else if(n==36){
-            cout<<6<<" "<<10<<" "<<15<<" "<<5<<"\n";
-        }
-        else if(n==40){
-            cout<<6<<" "<<14<<" "<<15<<" "<<5<<"\n";
-        }
-        else
-        cout<<6<<" "<<10<<" "<<14<<" "<<n-a<<"\n";
+    ll x;
+    vll a;
+    forin(a,x,n);
+    priority_queue<ll,vll,greater<ll>> ans;
+    ll s=0;
+    fo(i,0,n-1){
+          ans.push(a[i]);
+          s+=a[i];
+          while(s<0){
+              s-=ans.top();
+              ans.pop();
+          }
     }
-}
-
+    cout<<ans.size()<<"\n";
 return 0;
 }

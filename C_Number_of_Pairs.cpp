@@ -17,36 +17,44 @@ using namespace std;
 #define vll vector<ll>
 #define yes cout<<"YES"<<"\n"
 #define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
+
+
+ll solve(ll arr[], ll n, ll a, ll b) {
+    ll c = 0;
+    ll i = 0;
+    ll l = n-1;
+    ll h = n-1;
+    while (i < h) {
+         l = max(i, l);
+         while (l > i && arr[i] + arr[l] >= a) --l;
+         while (h > l && arr[i] + arr[h] > b) --h; 
+         c += (h-l);
+        ++i;
+    }
+    return c;
+}
+
 
 int main(){
  fast
 tc{
-    ll n;
-    cin>>n;
-    ll a=6+10+14;
-    if(n<=a)
-    no;
-    else{ 
-        yes;
-        if(n==44){
-            cout<<6<<" "<<10<<" "<<15<<" "<<13<<"\n";
-        }
-        else if(n==36){
-            cout<<6<<" "<<10<<" "<<15<<" "<<5<<"\n";
-        }
-        else if(n==40){
-            cout<<6<<" "<<14<<" "<<15<<" "<<5<<"\n";
-        }
-        else
-        cout<<6<<" "<<10<<" "<<14<<" "<<n-a<<"\n";
+    ll n,l,r;
+    cin>>n>>l>>r;
+    ll x;
+    ll a[n];
+    fo(i,0,n-1){
+        cin>>a[i];
     }
+    sort(a,a+n);
+    cout<<solve(a,n,l,r)<<"\n";
 }
 
 return 0;

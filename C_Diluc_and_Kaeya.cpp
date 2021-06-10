@@ -17,36 +17,45 @@ using namespace std;
 #define vll vector<ll>
 #define yes cout<<"YES"<<"\n"
 #define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
 
 int main(){
  fast
 tc{
     ll n;
     cin>>n;
-    ll a=6+10+14;
-    if(n<=a)
-    no;
-    else{ 
-        yes;
-        if(n==44){
-            cout<<6<<" "<<10<<" "<<15<<" "<<13<<"\n";
-        }
-        else if(n==36){
-            cout<<6<<" "<<10<<" "<<15<<" "<<5<<"\n";
-        }
-        else if(n==40){
-            cout<<6<<" "<<14<<" "<<15<<" "<<5<<"\n";
-        }
+    string s;
+    cin>>s;
+    map<pair<ll,ll>,ll> m;
+    vll ans;
+    ll u=0,v=0;
+    fo(i,0,n-1){
+        if(s[i]=='D')
+        u++;
         else
-        cout<<6<<" "<<10<<" "<<14<<" "<<n-a<<"\n";
+        {
+            v++;
+        }
+        if(u==0||v==0){
+            m[{0,0}]++;
+            ans.pb(m[{0,0}]);
+        }
+        else{
+            ll d=__gcd(u,v);
+            ll e=u/d;
+            ll f=v/d;
+            m[{e,f}]++;
+            ans.pb(m[{e,f}]);
+        }
     }
+    printv(ans);
 }
 
 return 0;
