@@ -26,50 +26,37 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
-
 int main(){
  fast
-
-    ll n;
-    cin>>n;
+tc{
+    ll k,n;
+    cin>>n>>k;
     ll x;
     vll a;
-    forin(a,x,n);
-    ll dp[n+1][n+1];
-    ll ans=0;
-    fo(i,0,n){
-        fo(j,0,n){
-        if(i==0||j==0){
-            dp[i][j]=0;
-            continue;
-        }
+    set<ll> s;
+    map<ll,ll> m;
+    fo(i,0,n-1){
+        cin>>x;
+        m[x]++;
+        s.insert(x);
+    }
 
-        if(dp[i-1][j-1]+a[i-1]>=0){
-            dp[i][j]=max(dp[i-1][j-1],dp[i-1][j-1]+a[i-1]);
-            if(dp[i][j]!=dp[i-1][j-1]||a[i]==0){
-                //cout<<dp[i][j]<<" "<<dp[i-1][j-1]<<"\n";
-                //ans=j-1;
-            }
-        }
-        else{
-            dp[i][j]=dp[i-1][j-1];
-        }
-        }
+    set<ll>::reverse_iterator rit;
+   for (rit = s.rbegin(); rit != s.rend(); rit++){
+       ll d=*rit;
+        a.pb((m[d]*d));
     }
-    ll m=INT_MIN;
+    sort(full(a),greater<ll>());
+    ll ans=0,c=0;
+    for(auto i:a){
+        c++;
+        if(c>k||i<0){
+            break;
+        }
+        ans+=i;
+    }
+    cout<<ans<<"\n";
+}
 
-    fo(i,1,n){
-      fo(j,1,n){
-          cout<<dp[i][j]<<" ";
-      }
-      cout<<'\n';
-    }
- ans=0;
-    fo(j,1,n){
-      if(dp[n][j]>dp[n][j-1]){
-          ans=j-1;
-      }
-    }
-    //cout<<ans<<"\n";
 return 0;
 }

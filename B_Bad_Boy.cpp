@@ -17,28 +17,33 @@ using namespace std;
 #define vll vector<ll>
 #define yes cout<<"YES"<<"\n"
 #define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
 #define tc ll t;cin>>t; while(t--)
+#define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
+#define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
 
 int main(){
  fast
- ll n,a,b,c;
- cin>>n>>a>>b>>c;
- 
- ll ans=INT_MIN;
- fo(i,0,n){
-   fo(j,0,n){
-     ll d=i*a+j*b;
-     ll p=n-d;
-    if(p%c==0&&p>=0){
-      ll k=p/c;
-      ans=max(ans,(i+j+k));
+tc{
+    ll n,m,i,j;
+    cin>>n>>m>>i>>j;
+    ll d1=abs(i-1)+abs(j-1);
+    d1+=(abs(n-i),abs(m-j));
+    
+    ll d2=abs(i-1)+abs(j-m);
+    d2+=(abs(i-n)+abs(j-1));
+
+    if(d1>=d2)
+    cout<<1<<" "<<1<<" "<<n<<" "<<m;
+    else{
+        cout<<1<<" "<<m<<" "<<n<<" "<<1;
     }
-   }
- }
- cout<<ans<<"\n";
+    cout<<"\n";
+}
+
 return 0;
 }

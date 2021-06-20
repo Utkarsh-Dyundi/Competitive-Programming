@@ -17,28 +17,44 @@ using namespace std;
 #define vll vector<ll>
 #define yes cout<<"YES"<<"\n"
 #define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
 #define tc ll t;cin>>t; while(t--)
+#define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
+#define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
 
 int main(){
  fast
- ll n,a,b,c;
- cin>>n>>a>>b>>c;
- 
- ll ans=INT_MIN;
- fo(i,0,n){
-   fo(j,0,n){
-     ll d=i*a+j*b;
-     ll p=n-d;
-    if(p%c==0&&p>=0){
-      ll k=p/c;
-      ans=max(ans,(i+j+k));
+
+    ll n,m;
+    cin>>n>>m;
+    ll x,y;
+    vll a;
+    forin(a,x,n);
+    vll r(n+1);
+    vector<vll> adj(n+1);
+    fo(i,0,m-1){
+     cin>>x>>y;
+     adj[x].pb(y);
+     adj[y].pb(x);
     }
+   vector<pair<ll,ll>> v;
+   fo(i,0,n-1){
+       v.pb({a[i],i+1});
    }
- }
- cout<<ans<<"\n";
+   sort(v.rbegin(), v.rend());
+   ll ans=0;
+   for(auto i:v){
+       r[i.S]=1;
+       for(auto j:adj[i.S]){
+           if(r[j]!=1){
+               ans+=a[j-1];
+           }
+       }
+   }
+   cout<<ans<<"\n";
 return 0;
 }

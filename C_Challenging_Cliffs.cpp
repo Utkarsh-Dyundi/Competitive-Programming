@@ -26,50 +26,55 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
-
 int main(){
  fast
-
+tc{
     ll n;
     cin>>n;
     ll x;
     vll a;
     forin(a,x,n);
-    ll dp[n+1][n+1];
-    ll ans=0;
-    fo(i,0,n){
-        fo(j,0,n){
-        if(i==0||j==0){
-            dp[i][j]=0;
-            continue;
-        }
-
-        if(dp[i-1][j-1]+a[i-1]>=0){
-            dp[i][j]=max(dp[i-1][j-1],dp[i-1][j-1]+a[i-1]);
-            if(dp[i][j]!=dp[i-1][j-1]||a[i]==0){
-                //cout<<dp[i][j]<<" "<<dp[i-1][j-1]<<"\n";
-                //ans=j-1;
+    sort(full(a));
+    //printv(a);
+    ll c;
+    ll m=INT_MAX;
+    fo(i,1,n-1){
+        ll d=a[i]-a[i-1];
+        if(d<m){
+            m=d;
+            c=i;
+        } 
+    }
+    //cout<<c<<" ";
+    if(c!=1&&c!=n-1){
+            cout<<a[c-1]<<" ";
+            fo(i,c+1,n-1){
+                 cout<<a[i]<<" ";
             }
-        }
-        else{
-            dp[i][j]=dp[i-1][j-1];
-        }
-        }
+            fo(i,0,c-2){
+                 cout<<a[i]<<" ";
+            }
+            cout<<a[c]<<"\n";
+            continue;
     }
-    ll m=INT_MIN;
 
-    fo(i,1,n){
-      fo(j,1,n){
-          cout<<dp[i][j]<<" ";
-      }
-      cout<<'\n';
+    if(c==1){
+        cout<<a[c-1]<<" ";
+        fo(i,2,n-1){
+            cout<<a[i]<<" ";
+        }
+        cout<<a[1]<<" "<<"\n";
+        continue;
     }
- ans=0;
-    fo(j,1,n){
-      if(dp[n][j]>dp[n][j-1]){
-          ans=j-1;
-      }
+
+    if(c==n-1){
+        cout<<a[n-2]<<" ";
+        fo(i,0,n-3){
+            cout<<a[i]<<" ";
+        }
+        cout<<a[n-1]<<"\n";
     }
-    //cout<<ans<<"\n";
+}
+
 return 0;
 }

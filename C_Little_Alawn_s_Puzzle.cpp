@@ -26,50 +26,48 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
-
+vector<vll> adj;
+vll v;
+void dfs(ll n){
+    v[n]=1;
+    for(auto i:adj[n]){
+        if(v[i]!=1){
+            dfs(i);
+        }
+    }
+}
 int main(){
  fast
-
+tc{
     ll n;
     cin>>n;
     ll x;
     vll a;
     forin(a,x,n);
-    ll dp[n+1][n+1];
+    vll b;
+    forin(b,x,n);
+    adj.resize(n+1);
+    v.resize(n+1);
+    fo(i,0,n-1){
+        adj[a[i]].pb(b[i]);
+        adj[b[i]].pb(a[i]);
+    }
     ll ans=0;
-    fo(i,0,n){
-        fo(j,0,n){
-        if(i==0||j==0){
-            dp[i][j]=0;
-            continue;
-        }
-
-        if(dp[i-1][j-1]+a[i-1]>=0){
-            dp[i][j]=max(dp[i-1][j-1],dp[i-1][j-1]+a[i-1]);
-            if(dp[i][j]!=dp[i-1][j-1]||a[i]==0){
-                //cout<<dp[i][j]<<" "<<dp[i-1][j-1]<<"\n";
-                //ans=j-1;
-            }
-        }
-        else{
-            dp[i][j]=dp[i-1][j-1];
-        }
-        }
-    }
-    ll m=INT_MIN;
-
     fo(i,1,n){
-      fo(j,1,n){
-          cout<<dp[i][j]<<" ";
-      }
-      cout<<'\n';
+       if(v[i]==0){
+           ans++;
+           dfs(i);
+       }
     }
- ans=0;
-    fo(j,1,n){
-      if(dp[n][j]>dp[n][j-1]){
-          ans=j-1;
-      }
+    ll r=2;
+    fo(i,1,ans-1){
+          r*=2;
+          r%=mod;
     }
-    //cout<<ans<<"\n";
+    cout<<r<<"\n";
+    adj.clear();
+    v.clear();
+}
+
 return 0;
 }

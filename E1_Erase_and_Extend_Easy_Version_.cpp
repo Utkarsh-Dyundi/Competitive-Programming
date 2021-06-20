@@ -26,50 +26,56 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
-
 int main(){
  fast
-
-    ll n;
-    cin>>n;
-    ll x;
-    vll a;
-    forin(a,x,n);
-    ll dp[n+1][n+1];
-    ll ans=0;
-    fo(i,0,n){
-        fo(j,0,n){
-        if(i==0||j==0){
-            dp[i][j]=0;
-            continue;
-        }
-
-        if(dp[i-1][j-1]+a[i-1]>=0){
-            dp[i][j]=max(dp[i-1][j-1],dp[i-1][j-1]+a[i-1]);
-            if(dp[i][j]!=dp[i-1][j-1]||a[i]==0){
-                //cout<<dp[i][j]<<" "<<dp[i-1][j-1]<<"\n";
-                //ans=j-1;
-            }
-        }
-        else{
-            dp[i][j]=dp[i-1][j-1];
-        }
-        }
-    }
-    ll m=INT_MIN;
-
-    fo(i,1,n){
-      fo(j,1,n){
-          cout<<dp[i][j]<<" ";
+ll n,k;
+cin>>n>>k;
+string s;
+cin>>s;
+stack<char> t;
+ll c=n;
+ll j=0;
+ll h=0;
+ll g=0;
+fo(i,1,n-1){
+      if(s[i]>s[0]){
+            c=i;
+            break;
       }
-      cout<<'\n';
-    }
- ans=0;
-    fo(j,1,n){
-      if(dp[n][j]>dp[n][j-1]){
-          ans=j-1;
+      else if(s[i]==s[0]){
+          g=i;
+          while(s[i]==s[j]){
+              i++;
+              j++;
+              if(i==n){
+                  c=i-1;
+                  break;
+              }
+              if(s[i]>s[j]){
+                  c=g;
+                  h=1;
+                  break;
+              }
+              else if(s[i]<s[j]){
+                  j=0;
+                  break;
+              }
+          }
       }
-    }
-    //cout<<ans<<"\n";
+      if(h==1){
+          break;
+      }
+}
+c--;
+ll ans=0;
+while(true){
+      fo(i,0,c){
+          cout<<s[i];
+          k--;
+          if(k==0){
+              return 0;
+          }
+      }
+}
 return 0;
 }

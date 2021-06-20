@@ -26,50 +26,55 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
-
+vll so(ll n){
+      vll a;
+      fo(i,1,sqrt(n)){
+          if(n/i!=i){
+              a.pb(n/i);
+          }
+          a.pb(i);
+      }
+      return a;
+}
 int main(){
  fast
-
+tc{
     ll n;
     cin>>n;
-    ll x;
-    vll a;
-    forin(a,x,n);
-    ll dp[n+1][n+1];
-    ll ans=0;
-    fo(i,0,n){
-        fo(j,0,n){
-        if(i==0||j==0){
-            dp[i][j]=0;
-            continue;
+    string s;
+    cin>>s;
+    ll ans=INT_MAX;
+    ll u=-1,v=-1;
+    ll o=0,z=0;
+    fo(i,0,n-1){
+        if(s[i]=='1'){
+            o++;
         }
+    }
+    if(o==1){
+        cout<<0<<"\n";
+        continue;
+    }
+    vll m=so(n);
+    
+    for(auto i:m){
+        ll d=0;
+        vll ma(n+1);
+        while(d<i){
+            for(ll j=d;j<n;j+=i){
+                if(s[j]=='1'){
+                    ma[d]++;
+                }
+          }
+          ll p=(n/i)-ma[d];
+          p+=(o-ma[d]);
+        //  cout<<p<<" ";
+          ans=min(ans,p);
+           d++;
+        }
+    }
+    cout<<ans<<"\n";
+}
 
-        if(dp[i-1][j-1]+a[i-1]>=0){
-            dp[i][j]=max(dp[i-1][j-1],dp[i-1][j-1]+a[i-1]);
-            if(dp[i][j]!=dp[i-1][j-1]||a[i]==0){
-                //cout<<dp[i][j]<<" "<<dp[i-1][j-1]<<"\n";
-                //ans=j-1;
-            }
-        }
-        else{
-            dp[i][j]=dp[i-1][j-1];
-        }
-        }
-    }
-    ll m=INT_MIN;
-
-    fo(i,1,n){
-      fo(j,1,n){
-          cout<<dp[i][j]<<" ";
-      }
-      cout<<'\n';
-    }
- ans=0;
-    fo(j,1,n){
-      if(dp[n][j]>dp[n][j-1]){
-          ans=j-1;
-      }
-    }
-    //cout<<ans<<"\n";
 return 0;
 }
