@@ -26,21 +26,24 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
+
 int main(){
  fast
 tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
+    string n;
+    cin>>n;
+    
+    if(n[0]!='1'){
+        cout<<1<<n<<"\n";
     }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+    else{
+        cout<<n[0]<<0;
+        fo(i,1,n.size()-1){
+            cout<<n[i];
+        }
+        cout<<"\n";
+    }
+
 }
 
 return 0;

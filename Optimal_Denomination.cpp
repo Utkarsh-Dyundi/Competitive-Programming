@@ -26,21 +26,51 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+        return b;
+    return gcd(b % a, a);
+}
 int main(){
  fast
 tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
+    ll n;
+    cin>>n;
+    ll x;
+    vll a;
+    ll v=INT_MIN;
+    ll p=0;
+    if(n==1){
+        cout<<1<<"\n";
+        continue;
     }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+    fo(i,0,n-1){  
+        cin>>x;
+        if(x>v){
+            v=x;
+            p=i;
+        }
+        a.pb(x);
+    }
+    ll g;
+    if(p!=0){
+        g=a[0];
+    }
+    else if(p!=1){
+        g=a[1];
+    }
+    fo(i,0,n-1){
+        if(i!=p){
+            g=gcd(g,a[i]);
+        }
+    }
+    a[p]=g;
+    ll ans=0;
+    fo(i,0,n-1){
+         ans+=(a[i]/g);
+    }
+    cout<<ans<<"\n";
 }
 
 return 0;

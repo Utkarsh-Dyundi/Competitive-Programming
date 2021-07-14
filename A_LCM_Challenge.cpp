@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include <numeric>
 using namespace std;
 #define tr(c,it) for(typeof(c.begin()) it=c.begin();it!=c.end();++it)
 #define all(c) c.begin(),c.end()
@@ -28,20 +29,54 @@ using namespace std;
 
 int main(){
  fast
-tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
-    }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+ll n;
+cin>>n;
+ll a=n;
+ll b=n-1;
+ll c=n-2;
+if(n==1){
+    cout<<1;
+    return 0;
 }
+if(n==2){
+    cout<<2;
+    return 0;
+}
+ll r=INT_MIN;
+while(a>=3){
+  
+        ll ans=lcm(a,b);
+        ans=lcm(ans,c);
+        r=max(r,ans);
+    a--;
+    b--;
+    c--;
+}
+a=n;
+b=n-1;
+c=n-1;
+while(a>=3){
+  
+        ll ans=lcm(a,b);
+        ans=lcm(ans,c);
+        r=max(r,ans);
+    a--;
+    b--;
+    c--;
+}
+a=n;
+b=n-1;
+c=n-3;
+while(a>=3){
+  
+        ll ans=lcm(a,b);
+        ans=lcm(ans,c);
+        r=max(r,ans);
+    a--;
+    b--;
+    c--;
+}
+cout<<r;
 
 return 0;
 }

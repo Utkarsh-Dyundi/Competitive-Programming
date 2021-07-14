@@ -1,53 +1,68 @@
-#include<bits/stdc++.h>
-# define pb push_back
-#define ll long long
+#include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define ii pair<int,int>
+#define vll vector<ll>
+#define mod 1000000007
+#define pb push_back
+#define fo(i,s,e) for(long long int i=s;i<=e;i++)
+#define F first
+#define S second
 
+priority_queue<ii,vector<ii>,greater<ii> > res;
+vll a(100005);
+vector<vector<ii> > adj;
+ll d;
+ll ans;
 
-int main(){
-ll n;
-cin>> n;
-vector<ll> a;
-ll x;
-for(int i=0;i<n;i++){
-    cin>>x;
-    a.pb(x);
-}
-sort(a.begin(),a.end());
-// for(auto i:a){
-//     cout<<i<<" ";
-// }
-cout<<"\n";
-ll ans=0;
-for(int i=0;i<n-2;i++){
-    for(int j=i+1;j<n-1;j++){
-    ll e=a[j]-a[i];
-    ll k=e*2;
-    e+=a[j];
-    k+=a[j];
-   
-    auto d=lower_bound(a.begin()+i+2,a.end(),e);
-    auto u=lower_bound(a.begin()+i+2,a.end(),k);
-    ll f=distance(a.begin()+j,d);
-    ll v=distance(a.begin()+j,u);
+void djkstra(int s,int d){
+    int m = adj.size()-1;
+    vll weight(m+1,mod);
+
+    weight[s] = 0;
     
-    if(f+j>n-1){
-        continue;
+    res.push({0,s});
+    
+    while(!res.empty()){
+        ii p= res.top(); res.pop();
+        int pp = p.S;
+        
+        for(auto i : adj[pp]){
+            int v = i.F, wt = i.S;
+            
+            if(weight[v] > weight[pp] + wt){
+                weight[v] = weight[pp]+wt;
+                res.push({weight[v],v});
+            }
+        }
     }
-    if(*d>k){
-        continue;
-    }
-    if(*u>k){
-        v--;
-    }
-    if(j+v>=n){
-        v--;
-    }
-    //  cout<<i<<" "<<j<<"\n";
-    // cout<<f<<" "<<v<<"\n";
-    ans+=(v-f+1);
-    }
+    if(weight[d]==mod)
+    ans=-1;
+    else
+    ans=weight[d];
+    return ;
 }
-cout<<ans;
-return 0;
+int main(){
+    int n;
+    cin>>n;
+    int x,y,wt;
+    fo(i,0,n-1){
+        cin>>x;
+        a[x] = i;
+        a[x]++;
+    }
+    adj.resize(n+1);
+    int nn;
+    cin>>nn;
+    fo(i,0,nn-1){
+        cin>>x>>y>>wt;
+        adj[a[x]].pb({a[y],wt});
+    }
+    int s;
+    cin>>s>>d;
+    djkstra(a[s],a[d]);
+    adj.clear();
+    a.clear();
+    cout<<ans;
+    
 }

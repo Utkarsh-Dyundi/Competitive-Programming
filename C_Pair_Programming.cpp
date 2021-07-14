@@ -29,18 +29,49 @@ using namespace std;
 int main(){
  fast
 tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
+    ll k,n,m;
+    cin>>k>>n>>m;
+    ll x;
+    vll a;
+    forin(a,x,n);
+    vll b;
+    forin(b,x,m);
+    ll i=0,j=0;
+    ll an=1;
+    ll c=0;
+    vll ans;
+    while(c!=n+m){
+         if(i<n&&(a[i]<=k||a[i]==0)){
+             ans.pb(a[i]);
+             if(a[i]==0){
+                 k++;
+             }
+             i++;
+             
+             c++;
+         }
+         else if(j<m&&(b[j]<=k||b[j]==0)){
+             ans.pb(b[j]);
+              if(b[j]==0){
+                 k++;
+             }
+             j++;
+             c++;
+         }
+         else{
+            // printv(ans);
+            // cout<<k<<" ";
+           an=0;
+           break;
+         }
     }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+    if(an==0){
+        cout<<-1<<"\n";
+    }
+    else{
+        printv(ans);
+    }
+
 }
 
 return 0;

@@ -26,21 +26,37 @@ using namespace std;
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
+
 int main(){
  fast
+ vll a;
+ll c=3;
+fo(i,0,100001){
+    a.pb(c);
+    c+=2;
+}
+
 tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
+    ll n;
+    cin>>n;
+    ll i=0;
+    ll j=a.size()-1;
+    ll ans=0;
+    while(i<=j){
+        ll m=(i+j)/2;
+        ll d=a[m]*a[m];
+        d--;
+        d/=2;
+        if(d<n){
+            ans=m+1;
+            i=m+1;
+        }
+        else{
+            j=m-1;
+        }
     }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+    // cout<<a[ans-1]<<" ";
+    cout<<ans<<"\n";
 }
 
 return 0;

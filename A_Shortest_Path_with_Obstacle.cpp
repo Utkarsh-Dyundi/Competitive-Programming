@@ -29,18 +29,18 @@ using namespace std;
 int main(){
  fast
 tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
+    ll x1,x2,x3,y1,y2,y3;
+    cin>>x1>>y1>>x2>>y2>>x3>>y3;
+    ll ans=abs(x1-x2)+abs(y1-y2);
+    if(x1==x2&&x2==x3){
+        if((y3>y1&&y2>y3)||(y3>y2&&y3<y1))
+        ans+=2;
     }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+    if(y1==y2&&y2==y3){
+        if((x3>x1&&x2>x3)||(x3>x2&&x3<x1))
+        ans+=2;
+    }
+    cout<<ans<<"\n";
 }
 
 return 0;

@@ -29,18 +29,44 @@ using namespace std;
 int main(){
  fast
 tc{
-    ll n,x,c;
-    cin>>n>>x>>c;
-    ll d=n-c/x;
-    ll e=c/x-1;
-    ll p=d;
-    if(p<0){
-        p=0;
+    ll n,m;
+    cin>>n>>m;
+    vector<string> v;
+    string s;
+    fo(i,0,n-1){
+        cin>>s;
+        v.pb(s);
     }
-    p*=(c/x);
-    ll u=min((n-1),(c/x-1))*min(n,c/x)/2;
-    u+=p;
-    cout<<u<<"\n";
+    vector<string> v1;
+    fo(i,0,n-2){
+        cin>>s;
+        v1.pb(s);
+    }
+    map<char,map<ll,ll>> m1,m2;
+    for(auto i:v){
+        fo(j,0,i.size()-1){
+            m1[i[j]][j]++;
+        }
+    }
+    for(auto i:v1){
+        fo(j,0,i.size()-1){
+            m2[i[j]][j]++;
+        }
+    }
+    for(auto i:v){
+        ll c=0;
+        fo(j,0,i.size()-1){
+            if(m1[i[j]][j]-m2[i[j]][j]==1){
+                c++;
+            }
+        }
+        if(c==i.size()){
+            cout<<i<<endl;
+            break;
+        }
+    }
+
+
 }
 
 return 0;
