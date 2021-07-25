@@ -17,40 +17,60 @@ using namespace std;
 #define vll vector<ll>
 #define yes cout<<"YES"<<"\n"
 #define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(0); cin.tie(0);
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
 #define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
 
 int main(){
  fast
 tc{
-    ll n;
-    cin>>n;
-    ll x;
-    vll a;
-    forin(a,x,n);
-    ll s=0;
+    ll n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    vll v;
+    int c=-1;
+    ll p=0;
     fo(i,0,n-1){
-        s+=a[i];
+        if(s[i]=='W'){
+            if(c==-1){
+                c=i;
+            }
+            else{
+                if(i-c>1){
+                v.pb(i-c-1);
+                }
+                c=i;
+            }
+            p++;
+        }
     }
-    if(s==0){
-        no;
-        continue;
+    sort(full(v));
+    c=0;
+    ll o=k;
+    for(auto i:v){
+        if(i<=k){
+          c++;
+          k-=i;
+        }
     }
-    yes;
-    if(s>0){
-    sort(a.begin(),a.end(),greater<ll>());
-    printv(a);
-    }
-    else{
-        sort(a.begin(),a.end());
-    printv(a);
-    }
-}
+    //cout<<v.size()<<" "<<c<<"\n";
 
+    ll ans=2*(o+p)-(v.size()-c)-1;
+    if(ans<0){
+        ans=0;
+    }
+    if(o+p>n){
+        ans=2*(n)-1;
+    }
+    
+    cout<<ans<<"\n";
+
+}
 return 0;
 }
