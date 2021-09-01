@@ -21,73 +21,78 @@ using namespace std;
 #define fo(i,s,e) for(long long int i=s;i<=e;i++)
 #define F first
 #define S second
-#define tc int t;cin>>t; while(t--)
+#define tc ll t;cin>>t; while(t--)
 #define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
 #define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
 #define full(v) v.begin(),v.end()
 
-bool can=false;
-vector<set<int>> b1,b2;
-void dfs(vector<set<int>>& adj, int i, int j,int p){
-    if(i==j){
-        can=true;
+struct node
+{
+    int par=-1;
+    int rank=0;
+};
+
+int dsf(int n, vector<node>& a){
+    if(a[n].par==-1){
+        return n;
     }
-    if(can){
-        return;
-    }
-    for(auto k:adj[i])
-    {   if(k!=p){
-        dfs(adj,k,j,i);
-        }
-    }
-   return;
+    ll k=dsf(a[n].par,a);
+    a[n].par=k;
+    a[k].rank++;
+    return k;
+}
+void dsu(int n, int m, vector<node>& a)
+{
+   ll topn=dsf(n,a);
+   ll topm=dsf(m,a);
+   if(a[topm].rank>a[topn].rank){
+        a[topn].par=topm;
+        a[topm].rank++;
+   }
+   else{
+       a[topm].par=topn;
+        a[topn].rank++;
+   }
 }
 
 int main(){
  fast
 
-    int n,m1,m2;
+    ll n,m1,m2;
     cin>>n>>m1>>m2;
-    vector<set<int>> a1(n+1),a2(n+2);
-    vector<pair<int,int>> ans;
-    b1.resize(n+1);
-    b2.resize(n+1);
+     vector<node> a(n+1),b(n+1);
     fo(i,0,m1-1){
-        int x,y;
+        ll x,y;
         cin>>x>>y;
-        a1[x].insert(y);
-        a1[y].insert(x);
+        dsu(x,y,a);
     }
     fo(i,0,m2-1){
-        int x,y;
+        ll x,y;
         cin>>x>>y;
-        a2[x].insert(y);
-        a2[y].insert(x);
+        dsu(x,y,b);
     }
-
+ll ans=0;
+vector<pair<ll,ll>> res;
     fo(i,1,n){
         fo(j,i,n){
-            if(j!=i){
-                can=false;
-                dfs(a1,i,j,-1);
-                if(can)
-                continue;
-                dfs(a2,i,j,-1);
-                if(can)
-                continue;
-                a1[i].insert(j);
-                a2[i].insert(j);
-                a1[j].insert(i);
-                a2[j].insert(i);
-                ans.pb({i,j});
+            ll topi1=dsf(i,a);
+            ll topj1=dsf(j,a);
+            ll topi2=dsf(i,b);
+            ll topj2=dsf(j,b);
+            if(topi1!=topj1&&topi2!=topj2){
+                ans++;
+                res.pb({i,j});
+                dsu(i,j,a);
+                dsu(i,j,b);
             }
+
         }
     }
-
-    cout<<ans.size()<<"\n";
-    for(auto i:ans){
+    cout<<ans<<"\n";
+    for(auto i:res){
         cout<<i.F<<" "<<i.S<<"\n";
     }
+
 
 return 0;
 }
