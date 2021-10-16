@@ -1,98 +1,65 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define tr(c,it) for(typeof(c.begin()) it=c.begin();it!=c.end();++it)
-#define all(c) c.begin(),c.end()
-#define mod 1000000007
-#define itor(c) typeof(c.begin())
-#define ll long long
-#define vi vector<int>
-#define si set<int>
-#define msi multiset<int>
-#define ii pair<int,int>
-#define sii set<ii>
-#define vii vector<ii>
-#define vvi vector<vi>
-#define pb push_back
-#define mp make_pair
-#define vll vector<ll>
-#define yes cout<<"YES"<<"\n"
-#define no cout<<"NO"<<"\n"
-#define fast ios_base::sync_with_stdio(false); cin.tie(0);
-#define fo(i,s,e) for(long long int i=s;i<=e;i++)
-#define F first
-#define S second
-#define tc ll t;cin>>t; while(t--)
-#define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
-#define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
-#define full(v) v.begin(),v.end()
 
-struct node
-{
+struct Node{
     int par=-1;
     int rank=0;
 };
 
-int dsf(int n, vector<node>& a){
-    if(a[n].par==-1){
-        return n;
+int findPar(vector<Node>& adj, int i){
+    if(adj[i].par==-1){
+        return i;
     }
-    ll k=dsf(a[n].par,a);
-    a[n].par=k;
-    a[k].rank++;
-    return k;
+    int p=findPar(adj,adj[i].par);
+    adj[i].par=p;
+    return p;
 }
-void dsu(int n, int m, vector<node>& a)
-{
-   ll topn=dsf(n,a);
-   ll topm=dsf(m,a);
-   if(a[topm].rank>a[topn].rank){
-        a[topn].par=topm;
-        a[topm].rank++;
-   }
-   else{
-       a[topm].par=topn;
-        a[topn].rank++;
-   }
+
+void unionF(vector<Node>& adj, int i,int j){
+    int par1=findPar(adj,i);
+    int par2=findPar(adj,j);
+    if(adj[par1].rank>adj[par2].rank){
+            adj[par2].par=par1;
+    }
+    else if(adj[par1].rank>adj[par2].rank){
+         adj[par2].par=par1;
+         adj[par1].rank++;
+    }
+    else{
+         adj[par1].par=par2;
+    }
 }
 
 int main(){
- fast
-
-    ll n,m1,m2;
+    int n,m1,m2;
+    vector<Node> a(n+5),b(n+5);
     cin>>n>>m1>>m2;
-     vector<node> a(n+1),b(n+1);
-    fo(i,0,m1-1){
-        ll x,y;
+    int x,y;
+    for(int i=0;i<m1;i++){
         cin>>x>>y;
-        dsu(x,y,a);
+        unionF(a,x,y);
     }
-    fo(i,0,m2-1){
-        ll x,y;
+    for(int j=0;j<m2;j++){
         cin>>x>>y;
-        dsu(x,y,b);
+        unionF(b,x,y);
     }
-ll ans=0;
-vector<pair<ll,ll>> res;
-    fo(i,1,n){
-        fo(j,i,n){
-            ll topi1=dsf(i,a);
-            ll topj1=dsf(j,a);
-            ll topi2=dsf(i,b);
-            ll topj2=dsf(j,b);
-            if(topi1!=topj1&&topi2!=topj2){
-                ans++;
-                res.pb({i,j});
-                dsu(i,j,a);
-                dsu(i,j,b);
+ vector<pair<int,int>> ans;
+    for(int i=1;i<=n;i++){
+        for(int j=i+1;j<=n;j++){
+        int topFor1a=findPar(a,i);
+          int  topFor1b=findPar(a,j);
+            int topFor2a=findPar(b,i);
+            int topFor2b=findPar(b,j);
+            if(topFor1a!=topFor1b&&topFor2a!=topFor2b){
+                ans.push_back({i,j});
+                unionF(a,i,j);
+                unionF(b,i,j);
             }
-
         }
     }
-    cout<<ans<<"\n";
-    for(auto i:res){
-        cout<<i.F<<" "<<i.S<<"\n";
+
+    cout<<ans.size()<<"\n";
+    for(auto i:ans){
+        cout<<i.first<<" "<<i.second<<"\n";
     }
-
-
-return 0;
 }

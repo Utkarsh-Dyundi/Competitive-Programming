@@ -1,0 +1,124 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define tr(c,it) for(typeof(c.begin()) it=c.begin();it!=c.end();++it)
+#define all(c) c.begin(),c.end()
+#define mod 1000000007
+#define itor(c) typeof(c.begin())
+#define ll long long
+#define vi vector<int>
+#define si set<int>
+#define msi multiset<int>
+#define ii pair<int,int>
+#define sii set<ii>
+#define vii vector<ii>
+#define vvi vector<vi>
+#define pb push_back
+#define mp make_pair
+#define vll vector<ll>
+#define yes cout<<"YES"<<"\n"
+#define no cout<<"NO"<<"\n"
+#define fast ios_base::sync_with_stdio(false); cin.tie(0);
+#define fo(i,s,e) for(long long int i=s;i<=e;i++)
+#define F first
+#define S second
+#define tc ll t;cin>>t; while(t--)
+#define forin(v,x,n) fo(i,0,n-1){cin>>x;v.pb(x);}
+#define printv(v) for(auto i:v){cout<<i<<" ";} cout<<"\n";
+#define full(v) v.begin(),v.end()
+
+int main(){
+ fast
+tc{
+    ll n,k;
+    cin>>n>>k;
+    ll x;
+    vll a;
+    forin(a,x,n);
+    vll r(n),l(n);
+    vll v;
+    fo(i,0,n-1){
+        if(a[i]!=0){
+            v.pb(i);
+        }
+    }
+    fo(i,0,n-1){
+        if(a[i]!=0){
+            v.pb(i+n);
+        }
+    }
+    fo(i,0,n-1){
+        auto it=upper_bound(full(v),i);
+        ll c=*it;
+        if(c>i){
+            r[i]=c-i-1;
+        }
+        else{
+            r[i]=i-c-1;
+        }
+    }
+    vll u;
+    vll b=a;
+    reverse(full(b));
+
+    fo(i,0,n-1){
+        if(b[i]!=0){
+            u.pb(i);
+        }
+    }
+    fo(i,0,n-1){
+        if(b[i]!=0){
+            u.pb(i+n);
+        }
+    }
+    fo(i,0,n-1){
+        auto it=upper_bound(full(u),i);
+        ll c=*it;
+        if(c>i){
+            l[n-i-1]=c-i-1;
+        }
+        else{
+            l[n-i-1]=i-c-1;
+        }
+    }
+    // printv(r);
+
+     ll ans=0;
+     fo(i,0,n-1){
+         ans+=a[i];
+     }
+     if(k==0){
+         cout<<ans<<"\n";
+         continue;
+     }
+     fo(i,0,n-1){
+         if(a[i]==0){
+         if(l[i]<k){
+             ans+=(k-l[i]);
+         }
+         if(r[i]<k){
+             ans+=(k-r[i]);
+         }
+         }
+         else{
+             if(l[i]!=0){
+                 ans+=(k-1);
+             }
+             else{
+                 ans+=k;
+             }
+             if(r[i]!=0){
+                 ans+=(k-1);
+             }
+             else{
+                 ans+=k;
+             }
+             
+         }
+     }
+    
+    cout<<ans<<"\n";
+
+}
+
+return 0;
+}
